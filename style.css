@@ -1,0 +1,10 @@
+* { color: #DADD95; font-size: 16pt; }
+body { background-color: #294867; }
+h1, .hd { font-size: 24pt; font-weight: bold; }
+.ft { font-size: 10pt; text-align: right; }
+#dsp 
+{ 
+	height: 200px; width: 200px; 
+	border: 2px solid #D9D7AA;
+	background-color: #000000;
+}
