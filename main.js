@@ -13,14 +13,17 @@ function init()
 	dsp.style.width = "100%";
 	
 	dc = dsp.getContext("2d");
-	
+
+	setInterval(anim, 500)	
+}
+
+function anim(t, dt)
+{
 	drawFlake(200, 200, 180, 180);
 }
 
 function drawShape(x_ds, y_ds, w_ds, h_ds, n_points)
 {
-	const drawit = true;
-	
 	var cx = x_ds+(w_ds/2);
 	var cy = y_ds+(h_ds/2);
 	
@@ -41,23 +44,21 @@ function drawShape(x_ds, y_ds, w_ds, h_ds, n_points)
 		});
 	}
 	
-	if(drawit == true)
+	dc.strokeStyle = randColor();
+	dc.lineWidth = 1;
+	dc.lineJoin = "round";
+	
+	dc.beginPath();
+	dc.moveTo(cx, cy);
+	
+	for (var i = 0; i < pts.length; i++)
 	{
-		dc.strokeStyle = "#bbbbdd";
-		dc.lineWidth = 1;
-		dc.lineJoin = "round";
-		
-		dc.beginPath();
+		dc.lineTo(pts[i].x, pts[i].y);
 		dc.moveTo(cx, cy);
-		
-		for (var i = 0; i < pts.length; i++)
-		{
-			dc.lineTo(pts[i].x, pts[i].y);
-			dc.moveTo(cx, cy);
-		}
-		dc.closePath();
-		dc.stroke();
 	}
+	dc.closePath();
+	dc.stroke();
+
 	return pts
 }
 
@@ -82,4 +83,19 @@ function drawFlake(x_df, y_df, w_df, h_df)
 			drawShape(x3, y3, w_df, h_df, N_POINTS);
 		}
 	}
+}
+
+function randColor()
+{
+	var red = parseInt(Math.random() * 0xff).toString(16);
+	if(red.length < 2) red = "0" + red;
+	
+	var green = parseInt(Math.random() * 0xff).toString(16);
+	if(green.length < 2) green = "0" + green;
+	
+	var blue = parseInt(Math.random() * 0xff).toString(16);
+	if(blue.length < 2) blue = "0" + blue;
+	
+	var out_str = "#" + red + green + blue;
+	return out_str;
 }
